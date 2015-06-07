@@ -1,5 +1,5 @@
 #pragma once
-
+#include <fstream>
 class Pixel
 {
 	int r;

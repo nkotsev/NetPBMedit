@@ -76,11 +76,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArgumentManager.cpp" />
+    <ClCompile Include="ArgumentManagerException.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageFactory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="PlainImage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArgumentManager.h" />
+    <ClInclude Include="ArgumentManagerException.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageFactory.h" />
     <ClInclude Include="Pixel.h" />
+    <ClInclude Include="PlainImage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

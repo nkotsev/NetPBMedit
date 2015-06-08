@@ -1,16 +1,16 @@
 #pragma once
 #include "Image.h"
-class PlainMonochromeImage :
+class PlainGrayscaleImage :
   public Image
 {
 public:
   static const int defaultMaxVal;
 public:
-  PlainMonochromeImage();
-  PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream);
+  PlainGrayscaleImage();
+  PlainGrayscaleImage(int width, int height, int maxVal, int type, std::ifstream& stream);
   virtual void readImage(std::ifstream& stream);
   virtual void printImage(std::ofstream&);
-  ~PlainMonochromeImage();
+  ~PlainGrayscaleImage();
 protected:
   virtual void printHeader(std::ofstream&);
   virtual void printBody(std::ofstream&);

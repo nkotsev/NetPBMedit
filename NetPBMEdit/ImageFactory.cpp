@@ -7,6 +7,9 @@
 #include "Image.h"
 #include "PlainImage.h"
 #include "PlainMonochromeImage.h"
+#include "PlainPixmapImage.h"
+#include "PlainGrayscaleImage.h"
+
 ImageFactory::ImageFactory(): stream(NULL)
 {
 }
@@ -65,10 +68,12 @@ Image* ImageFactory::initializeImage(){
     case(1):
       pImage = new PlainMonochromeImage(width, height, PlainMonochromeImage::defaultMaxVal, type, *stream);
       break;
-    case(2):
-      //TODO : Plain grayscale
-    case(3):
-      //TODO : Plain pixmap
+    case(2) :
+      pImage = new PlainGrayscaleImage(width, height, maxVal, type, *stream);
+      break;
+    case(3) :
+      pImage = new PlainPixmapImage(width, height, maxVal, type, *stream);
+      break;
     case(4):
       //TODO : Binary monochrome
     case(5):

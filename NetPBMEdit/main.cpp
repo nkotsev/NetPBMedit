@@ -8,11 +8,13 @@
 
 #pragma optimize("", off)
 int main(){
-	try{
+	// Monochrome
+  /*try{
     std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\test.pbm", std::ios::in);
     ImageFactory fact(inputStream);
     Image* pImage = fact.initializeImage();
-    std::ofstream outputStream
+    std::ofstream outputStream("C:\\Users\\Nikolay\\Desktop\\testHeader.pbm", std::ios::out);
+    pImage->printImage(outputStream);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << std::endl;
@@ -23,7 +25,53 @@ int main(){
 		std::cout << string << std::endl;
 		system("PAUSE");
 		throw string;
-	}
+	}*/
+
+  // Pixmap
+  /*try{
+    std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\testRGB.ppm", std::ios::in);
+    ImageFactory fact(inputStream);
+    Image* pImage = fact.initializeImage();
+    for (int i = 0; i < pImage->getHeight() * pImage->getWidth(); i++){
+      std::cout << pImage->getPixel(i).getRed() << " "
+        << pImage->getPixel(i).getGreen() << " "
+        << pImage->getPixel(i).getBlue() << std::endl;
+    }
+    std::ofstream outputStream("C:\\Users\\Nikolay\\Desktop\\testRGBprint.ppm", std::ios::out);
+    pImage->printImage(outputStream);
+    outputStream.close();
+  }
+  catch (std::exception e){
+    std::cout << e.what() << std::endl;
+    system("PAUSE");
+    throw e;
+  }
+  catch (char* string){
+    std::cout << string << std::endl;
+    system("PAUSE");
+    throw string;
+  }*/
+  try{
+    std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\testGrayscale.pgm", std::ios::in);
+    ImageFactory fact(inputStream);
+    Image* pImage = fact.initializeImage();
+    for (int i = 0; i < pImage->getHeight() * pImage->getWidth(); i++){
+      std::cout << pImage->getPixel(i).getGrayscale() << std::endl;
+    }
+    std::ofstream outputStream("C:\\Users\\Nikolay\\Desktop\\testGrayscaleprint.pgm", std::ios::out);
+    pImage->printImage(outputStream);
+    outputStream.close();
+  }
+  catch (std::exception e){
+    std::cout << e.what() << std::endl;
+    system("PAUSE");
+    throw e;
+  }
+  catch (char* string){
+    std::cout << string << std::endl;
+    system("PAUSE");
+    throw string;
+  }
   /*
 	str.seekg(std::ios::beg);
 	std::ifstream stream2("C:\\Users\\Nikolay\\Desktop\\Primo_Victoria.pbm", std::ios::in);
@@ -50,5 +98,5 @@ int main(){
 }
 
 //TODO:
-// See a logical way to parse the headers
 // Fix throws;
+// See wtf is happening in Grayscale;

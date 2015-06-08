@@ -1,18 +1,17 @@
 #pragma once
 #include "Image.h"
-class PlainMonochromeImage :
+class PlainPixmapImage :
   public Image
 {
 public:
   static const int defaultMaxVal;
 public:
-  PlainMonochromeImage();
-  PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream);
+  PlainPixmapImage();
+  PlainPixmapImage(int width, int height, int maxVal, int type, std::ifstream& stream);
+  ~PlainPixmapImage();
   virtual void readImage(std::ifstream& stream);
   virtual void printImage(std::ofstream&);
-  ~PlainMonochromeImage();
 protected:
-  virtual void printHeader(std::ofstream&);
   virtual void printBody(std::ofstream&);
 };
 

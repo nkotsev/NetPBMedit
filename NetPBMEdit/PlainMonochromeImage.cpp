@@ -7,7 +7,8 @@ PlainMonochromeImage::PlainMonochromeImage() : Image()
 {
 }
 
-PlainMonochromeImage::PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream): Image(width, height, maxVal, type, stream)
+PlainMonochromeImage::PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream)
+  : Image(width, height, maxVal, type, stream)
 {
   if (type != 1){
     throw "Wrong type given. The magic number for plain monochrone image is P1";
@@ -51,5 +52,14 @@ void PlainMonochromeImage::printHeader(std::ofstream& stream){
 }
 
 void PlainMonochromeImage::printBody(std::ofstream& stream){
-
+  if (!stream){
+    throw "Bad file state. Terminating the process";
+  }
+  for (int row = 0; row < getHeight(); row++){
+    for (int col = 0; col < getWidth(); col++){
+      stream << getPixel(row * getWidth() + col).getMonochrome() << " ";
+    }
+    stream << "\n";
+  }
+  stream.flush();
 }

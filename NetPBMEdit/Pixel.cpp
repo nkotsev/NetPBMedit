@@ -1,8 +1,9 @@
 #include "Pixel.h"
-#include "Image.h" // For Image::MAX_VAL_MAX;
 #include <exception>
 #include <stdexcept>
 
+#include "Image.h" // For Image::MAX_VAL_MAX;
+#include "PlainMonochromeImage.h" // For PlainMonochromeImage::defaultMaxVal
 const char* Pixel::INVALID_COLOR_ARGUMENT = "The value of each color should be\
                                   								   between 0 and 255";
 
@@ -11,17 +12,27 @@ Pixel::Pixel() : r(0), g(0), b(0), maxVal(0)
 }
 Pixel::Pixel(int r, int g, int b, int maxVal) 
 {
-	setColor(r, g, b);
+	setColor(r, g, b, maxVal);
   setMaxVal(maxVal);
 }
 
-void Pixel::setColor(int r, int g, int b){
-	if (!checkRGBValidity(r, g, b)){
+void Pixel::setColor(int r, int g, int b, int maxVal){
+  setMaxVal(maxVal);
+  if (!checkRGBValidity(r, g, b)){
 		throw new std::invalid_argument(INVALID_COLOR_ARGUMENT);
 	}
 	this->r = r;
 	this->g = g;
 	this->b = b;
+}
+
+void Pixel::setColor(int r, int g, int b){
+  if (!checkRGBValidity(r, g, b)){
+    throw new std::invalid_argument(INVALID_COLOR_ARGUMENT);
+  }
+  this->r = r;
+  this->g = g;
+  this->b = b;
 }
 
 bool Pixel::checkValueValidity(int value){
@@ -49,14 +60,15 @@ int Pixel::getBlue(){
 	return b;
 }
 
-int Pixel::getGrayscale(int maxColor){
-	return (int)((((r + b + g) / 3) / 255.0) *maxColor);
+int Pixel::getGrayscale(){
+	return (int)((((r + b + g) / 3) / 255.0) *maxVal);
 }
 
-void Pixel::setGrayscale(int value){
+void Pixel::setGrayscale(int value, int maxVal){
 	int grayTone = (int) value * (255.0/maxVal);
 	if (checkValueValidity(grayTone)){
 		r = g = b = grayTone;
+    setMaxVal(maxVal);
 	}
 	else{
 		throw std::invalid_argument(INVALID_COLOR_ARGUMENT);
@@ -64,16 +76,24 @@ void Pixel::setGrayscale(int value){
 }
 
 int Pixel::getMonochrome(){
-	return r ? 0 : 1; // if r > 0 (should be 255) return 0 else (r == 0) return 1
+  int mono = (r + g + b) / 3;
+  if (mono - (maxVal / 2.0) >= 0)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
 }
 
 void Pixel::setMonochrome(char color){
-  setMaxVal(1);
+  setMaxVal(PlainMonochromeImage::defaultMaxVal);
   if (color == 0){
-    setColor(0,0,0);
+    setColor(maxVal,maxVal,maxVal); //Because it is white 
   }
   else if (color == 1){
-    setColor(1,1,1);
+    setColor(0,0,0); // Because it is black
   }
   else
   {

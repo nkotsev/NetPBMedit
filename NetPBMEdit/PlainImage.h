@@ -7,7 +7,7 @@ public:
 	PlainImage();
 	PlainImage(int, int, int, int, std::ifstream&);
 	~PlainImage();
-	virtual void readImage(std::ifstream& stream);
+	void readImage(std::ifstream& stream);
 	void readMonochrome(std::ifstream& stream, int index);
 	void readGrayscale(std::ifstream& stream, int index);
 	void readRGB(std::ifstream& stream, int index);

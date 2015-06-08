@@ -4,12 +4,12 @@
 #include <stdexcept>
 
 const char* const Image::INVALID_IMAGE_SIZE = "The size of the image is invalid";
-
+const int Image::defaultMaxVal = 255;
 Image::Image() : width(0), height(0), maxVal(0), type(0), image(NULL)
 {
 }
 
-Image::Image(int width, int height, int maxVal = 1, int type, std::ifstream& stream) : image(NULL)
+Image::Image(int width, int height, int maxVal, int type, std::ifstream& stream) : image(NULL)
 {
 	setWidth(width);
 	setHeight(height);
@@ -95,6 +95,16 @@ int Image::getType(){
 	return type;
 }
 
-Pixel Image::getPixel(int index){
+Pixel& Image::getPixel(int index){
 	return image[index];
+}
+
+void Image::printHeader(std::ofstream& stream)
+{
+  if (!stream){
+    throw "File is in bad state. Terminating the process";
+  }
+  stream << 'P' << type << '\n'
+         << width << " " << height << '\n'
+         << maxVal << '\n';
 }

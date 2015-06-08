@@ -14,6 +14,7 @@ protected:
 	static const char* const INVALID_IMAGE_SIZE;
 public:
 	static const long MAX_VAL_MAX = 65536;
+  static const int defaultMaxVal;
 public:
 	Image();
 	Image(int width, int height, int maxVal, int type, std::ifstream& steam);
@@ -27,10 +28,12 @@ public:
 	int  getMaxVal();
 	void setType(int type);
 	int  getType();
-	Pixel getPixel(int index);
-
+	Pixel& getPixel(int index);
+  virtual void printImage(std::ofstream& stream) = 0;
 protected:
+  virtual void printHeader(std::ofstream&);
+  virtual void printBody(std::ofstream&) = 0;
 	bool checkSizeValidity(int width, int height);
-	virtual void readImage(int image_size, std::ifstream& stream) = 0;
+  virtual void readImage(std::ifstream& stream) = 0;
 };
 

@@ -5,17 +5,19 @@ class Pixel
 	int r;
 	int	g;
 	int b;
-	const char* INVALID_COLOR_ARGUMENT = "The value of each color should be\
-								   between 0 and 255";
+  int maxVal;
+  static const char* INVALID_COLOR_ARGUMENT;
 public:
 	Pixel();
-	Pixel(int r, int g, int b);
+	Pixel(int r, int g, int b, int maxVal);
 	void setColor(int r, int g, int b);
 	int getRed();
 	int getGreen();
 	int getBlue();
+  int getMaxVal();
+  void setMaxVal(int val);
 	int getGrayscale(int maxColor);
-	void setGrayscale(int value, int maxColor);
+	void setGrayscale(int value);
 	int getMonochrome();
 	// 0 for white character and 1 for black
 	void setMonochrome(char color);

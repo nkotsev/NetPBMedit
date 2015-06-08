@@ -1,12 +1,12 @@
 #include "ImageFactory.h"
 #include <cstddef>
-#include <iostream>
 #include <stdexcept>
 #include <cstring>
 #include <cstdlib> // strtoul; 
 
 #include "Image.h"
-
+#include "PlainImage.h"
+#include "PlainMonochromeImage.h"
 ImageFactory::ImageFactory(): stream(NULL)
 {
 }
@@ -16,7 +16,6 @@ ImageFactory::ImageFactory(std::ifstream& stream):stream(NULL) {
 		throw new std::invalid_argument("Problem with the stream");
 	}
 	this->stream = &stream;
-	initializeImage(); // Remove it from here
 }
 
 void ImageFactory::getNextString(char destination[]){
@@ -26,7 +25,7 @@ void ImageFactory::getNextString(char destination[]){
 	} while (isComment(destination) || !strcmp(destination, ""));
 }
 
-void ImageFactory::initializeImage(){
+Image* ImageFactory::initializeImage(){
 	int type;
 	int width;
 	int height;
@@ -58,11 +57,54 @@ void ImageFactory::initializeImage(){
 			throw "Invalid maxVal value. It should be between 1 and 65536";
 		}
 	}
+  Image * pImage = NULL;
+  // Construct Image:
+  try
+  {
+    switch (type){
+    case(1):
+      pImage = new PlainMonochromeImage(width, height, PlainMonochromeImage::defaultMaxVal, type, *stream);
+      break;
+    case(2):
+      //TODO : Plain grayscale
+    case(3):
+      //TODO : Plain pixmap
+    case(4):
+      //TODO : Binary monochrome
+    case(5):
+      //TODO : Binary grayscale
+    case(6):
+      //TODO : Binary pixmap
+    default:
+      throw "Invalid image type.";
+    }
+  }
+  catch (std::exception e)//TODO: make more cases
+  {
+    std::cerr << e.what() << std::endl;
+    throw e;
+  }
+  catch (char* e)
+  {
+    std::cerr << e << std::endl;
+    throw e;
+  }
+  for (int i = 0; i < pImage->getHeight()* pImage->getWidth(); i++){
+    std::cerr << pImage->getPixel(i).getRed() << " "
+      << pImage->getPixel(i).getGreen() << " "
+      << pImage->getPixel(i).getBlue() << "\n";
+  }
+  return pImage;
 }
 
 bool ImageFactory::isComment(char* str){
 	if (str[0] == '#'){
-		while (stream->get() != '\n' || !stream->eof() || !stream->fail());
+    char c = 0;
+    stream->get(c);
+    while (c != '\n' && !stream->eof() && !stream->fail())
+    {
+      stream->get(c);
+    }
 		return true;
 	}
 	return false;

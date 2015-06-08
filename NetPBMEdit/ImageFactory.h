@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include "Image.h"
 class ImageFactory
 {
 	std::ifstream* stream;
 public:
 	ImageFactory(std::ifstream& stream);
 	virtual ~ImageFactory();
-	void initializeImage();
+	Image* initializeImage();
 private:
 	ImageFactory();
 	

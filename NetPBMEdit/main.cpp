@@ -1,15 +1,18 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <cstring>
 #include "Pixel.h"
+#include "Image.h"
 #include "ImageFactory.h"
 
-#include <cstring>
 #pragma optimize("", off)
 int main(){
-	std::ifstream str("C:\\Users\\Nikolay\\Desktop\\test.pbm", std::ios::in);
 	try{
-		ImageFactory fact(str);
+    std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\test.pbm", std::ios::in);
+    ImageFactory fact(inputStream);
+    Image* pImage = fact.initializeImage();
+    std::ofstream outputStream
 	}
 	catch (std::exception e){
 		std::cout << e.what() << std::endl;
@@ -21,6 +24,7 @@ int main(){
 		system("PAUSE");
 		throw string;
 	}
+  /*
 	str.seekg(std::ios::beg);
 	std::ifstream stream2("C:\\Users\\Nikolay\\Desktop\\Primo_Victoria.pbm", std::ios::in);
 	char string[1024];
@@ -29,7 +33,7 @@ int main(){
 	}
 	while (stream2 >> string){
 		std::cout << string << std::endl;
-	}
+	}*/
 	/*char string[1024];
 	while (str >> string){
 		std::cout << string << std::endl;

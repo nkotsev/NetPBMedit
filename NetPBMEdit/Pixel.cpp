@@ -1,11 +1,10 @@
 #include "Pixel.h"
 #include <exception>
 #include <stdexcept>
-
+#include <cmath> // Round
 #include "Image.h" // For Image::MAX_VAL_MAX;
 #include "PlainMonochromeImage.h" // For PlainMonochromeImage::defaultMaxVal
-const char* Pixel::INVALID_COLOR_ARGUMENT = "The value of each color should be\
-                                  								   between 0 and 255";
+const char* Pixel::INVALID_COLOR_ARGUMENT = "The value of each color should be between 0 and the given maxVal in the header";
 
 Pixel::Pixel() : r(0), g(0), b(0), maxVal(0)
 {
@@ -13,7 +12,6 @@ Pixel::Pixel() : r(0), g(0), b(0), maxVal(0)
 Pixel::Pixel(int r, int g, int b, int maxVal) 
 {
 	setColor(r, g, b, maxVal);
-  setMaxVal(maxVal);
 }
 
 void Pixel::setColor(int r, int g, int b, int maxVal){
@@ -61,14 +59,14 @@ int Pixel::getBlue(){
 }
 
 int Pixel::getGrayscale(){
-	return (int)((((r + b + g) / 3) / 255.0) *maxVal);
+	return round((r + b + g) / 3);
 }
 
 void Pixel::setGrayscale(int value, int maxVal){
-	int grayTone = (int) value * (255.0/maxVal);
+  setMaxVal(maxVal);
+  int grayTone = value;
 	if (checkValueValidity(grayTone)){
 		r = g = b = grayTone;
-    setMaxVal(maxVal);
 	}
 	else{
 		throw std::invalid_argument(INVALID_COLOR_ARGUMENT);
@@ -105,5 +103,8 @@ void Pixel::setMaxVal(int val){
   if (val <= 0 || val > Image::MAX_VAL_MAX){
     throw "The maximum value should be between 1 and 65535";
   }
+  r = round((r / (double) maxVal) * val);
+  g = round((g / (double)maxVal) * val);
+  b = round((b / (double)maxVal) * val);
   maxVal = val;
 }

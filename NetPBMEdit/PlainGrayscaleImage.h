@@ -12,7 +12,6 @@ public:
   virtual void printImage(std::ofstream&);
   ~PlainGrayscaleImage();
 protected:
-  virtual void printHeader(std::ofstream&);
   virtual void printBody(std::ofstream&);
 };
 

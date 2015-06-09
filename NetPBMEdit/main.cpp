@@ -9,7 +9,7 @@
 #pragma optimize("", off)
 int main(){
 	// Monochrome
-  /*try{
+  try{
     std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\test.pbm", std::ios::in);
     ImageFactory fact(inputStream);
     Image* pImage = fact.initializeImage();
@@ -25,10 +25,10 @@ int main(){
 		std::cout << string << std::endl;
 		system("PAUSE");
 		throw string;
-	}*/
+	}
 
   // Pixmap
-  /*try{
+  try{
     std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\testRGB.ppm", std::ios::in);
     ImageFactory fact(inputStream);
     Image* pImage = fact.initializeImage();
@@ -50,7 +50,7 @@ int main(){
     std::cout << string << std::endl;
     system("PAUSE");
     throw string;
-  }*/
+  }
   try{
     std::ifstream inputStream("C:\\Users\\Nikolay\\Desktop\\testGrayscale.pgm", std::ios::in);
     ImageFactory fact(inputStream);

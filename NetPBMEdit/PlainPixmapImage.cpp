@@ -2,15 +2,9 @@
 #include <fstream>
 #include <iomanip> // setw
 
+#include "ApplicationHelpers.cpp"
+
 const int PlainPixmapImage::defaultMaxVal = 255;
-
-// Find a better place for this function
-template <class T>
-inline int GetNumberOfDigits(T i)
-{
-  return i > 0 ? (int)log10((double)i) + 1 : 1;
-}
-
 
 PlainPixmapImage::PlainPixmapImage()
 {

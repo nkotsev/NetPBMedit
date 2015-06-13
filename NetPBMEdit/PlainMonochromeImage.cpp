@@ -7,6 +7,14 @@ PlainMonochromeImage::PlainMonochromeImage() : Image()
 {
 }
 
+PlainMonochromeImage::PlainMonochromeImage(int width, int height, int maxVal, int type)
+  : Image(width, height, maxVal, type)
+{
+  if (type != 1){
+    throw "Wrong type given. The magic number for plain monochrone image is P1";
+  }
+}
+
 PlainMonochromeImage::PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream)
   : Image(width, height, maxVal, type, stream)
 {

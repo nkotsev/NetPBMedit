@@ -18,6 +18,7 @@ public:
 public:
 	Image();
 	Image(int width, int height, int maxVal, int type, std::ifstream& steam);
+  Image(int width, int height, int maxVal, int type);
 	virtual ~Image();
 	
 	void setWidth(int width);
@@ -29,6 +30,7 @@ public:
 	void setType(int type);
 	int  getType();
 	Pixel& getPixel(int index);
+  int pixelCount();
   virtual void printImage(std::ofstream& stream) = 0;
 protected:
   virtual void printHeader(std::ofstream&);

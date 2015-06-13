@@ -1,0 +1,14 @@
+P1
+# This is an example bitmap of the letter "J"
+# I don't own rights for the image. The image was copied from https://en.wikipedia.org/wiki/Netpbm_format
+6 10
+0 0 0 0 1 0
+0 0 0 0 1 0
+0 0 0 0 1 0
+0 0 0 0 1 0
+0 0 0 0 1 0
+0 0 0 0 1 0
+1 0 0 0 1 0
+0 1 1 1 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0

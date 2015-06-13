@@ -18,6 +18,14 @@ Image::Image(int width, int height, int maxVal, int type, std::ifstream& stream)
 	image = new Pixel[width*height];
 }
 
+Image::Image(int width, int height, int maxVal, int type){
+  setWidth(width);
+  setHeight(height);
+  setMaxVal(maxVal);
+  setType(type);
+  image = new Pixel[width*height];
+}
+
 Image::~Image()
 {
 	delete[] image;
@@ -107,4 +115,8 @@ void Image::printHeader(std::ofstream& stream)
   stream << 'P' << type << '\n'
          << width << " " << height << '\n'
          << maxVal << '\n';
+}
+
+int Image::pixelCount(){
+  return getWidth() * getHeight();
 }

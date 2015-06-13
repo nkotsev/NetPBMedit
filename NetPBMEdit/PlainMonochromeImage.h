@@ -8,6 +8,7 @@ public:
 public:
   PlainMonochromeImage();
   PlainMonochromeImage(int width, int height, int maxVal, int type, std::ifstream& stream);
+  PlainMonochromeImage(int width, int height, int maxVal, int type);
   virtual void readImage(std::ifstream& stream);
   virtual void printImage(std::ofstream&);
   ~PlainMonochromeImage();

@@ -81,6 +81,7 @@
     <ClCompile Include="ArgumentManagerException.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageFactory.cpp" />
+    <ClCompile Include="ImageTransformator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="PlainGrayscaleImage.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="ArgumentManagerException.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageFactory.h" />
+    <ClInclude Include="ImageTransformator.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="PlainGrayscaleImage.h" />
     <ClInclude Include="PlainImage.h" />

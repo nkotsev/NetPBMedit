@@ -16,6 +16,14 @@ PlainGrayscaleImage::PlainGrayscaleImage(int width, int height, int maxVal, int 
   readImage(stream);
 }
 
+PlainGrayscaleImage::PlainGrayscaleImage(int width, int height, int maxVal, int type)
+  : Image(width, height, maxVal, type)
+{
+  if (type != 2){
+    throw "Wrong type given. The magic number for plain monochrone image is P2";
+  }
+}
+
 void PlainGrayscaleImage::readImage(std::ifstream& stream)
 {
   for (int index = 0; index < getWidth() * getHeight(); index++){

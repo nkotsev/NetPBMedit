@@ -11,12 +11,13 @@
 #pragma optimize("", off)
 int main(){
   // Monochrome
+  Image* pImageMonochrome;
   try{
     std::ifstream inputStream("test.pbm", std::ios::in);
     ImageFactory fact(inputStream);
-    Image* pImage = fact.initializeImage();
+    pImageMonochrome = fact.initializeImage();
     std::ofstream outputStream("testMonoPrint.pbm", std::ios::out);
-    pImage->printImage(outputStream);
+    pImageMonochrome->printImage(outputStream);
   }
   catch (std::exception e){
     std::cout << e.what() << std::endl;
@@ -30,18 +31,13 @@ int main(){
   }
 
   // Pixmap
-  Image* pImage = NULL;
+  Image* pImagePixmap = NULL;
   try{
     std::ifstream inputStream("testRGB.ppm", std::ios::in);
     ImageFactory fact(inputStream);
-    pImage = fact.initializeImage();
-    for (int i = 0; i < pImage->getHeight() * pImage->getWidth(); i++){
-      std::cout << pImage->getPixel(i).getRed() << " "
-        << pImage->getPixel(i).getGreen() << " "
-        << pImage->getPixel(i).getBlue() << std::endl;
-    }
+    pImagePixmap = fact.initializeImage();
     std::ofstream outputStream("testRGBprint.ppm", std::ios::out);
-    pImage->printImage(outputStream);
+    pImagePixmap->printImage(outputStream);
     outputStream.close();
   }
   catch (std::exception e){
@@ -54,15 +50,14 @@ int main(){
     system("PAUSE");
     throw string;
   }
+  //Grayscale
+  Image* pImageGrayscale;
   try{
     std::ifstream inputStream("testGrayscale.pgm", std::ios::in);
     ImageFactory fact(inputStream);
-    Image* pImage = fact.initializeImage();
-    for (int i = 0; i < pImage->getHeight() * pImage->getWidth(); i++){
-      std::cout << pImage->getPixel(i).getGrayscale() << std::endl;
-    }
+    pImageGrayscale = fact.initializeImage();
     std::ofstream outputStream("testGrayscaleprint.pgm", std::ios::out);
-    pImage->printImage(outputStream);
+    pImageGrayscale->printImage(outputStream);
     outputStream.close();
   }
   catch (std::exception e){
@@ -75,43 +70,46 @@ int main(){
     system("PAUSE");
     throw string;
   }
-  /*
-  str.seekg(std::ios::beg);
-  std::ifstream stream2("C:\\Users\\Nikolay\\Desktop\\Primo_Victoria.pbm", std::ios::in);
-  char string[1024];
-  while (str >> string){
-  std::cout << string << std::endl;
-  }
-  while (stream2 >> string){
-  std::cout << string << std::endl;
-  }*/
-  /*char string[1024];
-  while (str >> string){
-  std::cout << string << std::endl;
-  }*/
-
-  // Basic pixel tests
-  /*Pixel p(13, 10, 33);
-  std::cout << p.getGrayscale(2) << std::endl;
-  Pixel p2;
-  p2.setGrayscale(p.getGrayscale(2), 2);
-  std::cout << p2.getRed() << " " << p2.getGreen() << " " << p2.getBlue() << std::endl;*/
   //Test Image Transformator
-  char* path = "transformator_mono_result.ppm";
+  char* path  = "transformator_mono_result.ppm";
   char* path2 = "transformator_grayscale_result.pgm";
-  std::ofstream output(path);
-  ImageTransformator it2(pImage);
+  char* path3 = "testGrayscaleToMonochrome.pbm";
+  char* path4 = "testMonochromeToGrayscale.pbm";
+  
+  ImageTransformator it2(pImagePixmap);
   Image* transformedMono = NULL;
   Image* tranformedGrayscale = NULL;
+  Image* grayscaleTransofrmedtoMonochrome = NULL;
+  Image* monochromeToGrayscale = NULL;
   if (it2.canTransform()){
     transformedMono = it2.transformToPlainMonochrome();
     tranformedGrayscale = it2.tranformToPlainGrayscale();
+    it2.setSource(pImageGrayscale);
+    grayscaleTransofrmedtoMonochrome = it2.transformToPlainMonochrome();
+    it2.setSource(pImageMonochrome);
+    monochromeToGrayscale = it2.transformToPlainMonochrome();
   }
-  transformedMono->printImage(output);
-  output.close();
-  output.open(path2);
-  tranformedGrayscale->printImage(output);
-  output.close();
+  std::ofstream output;
+  if (transformedMono){
+    output.open(path);
+    transformedMono->printImage(output);
+    output.close();
+  }
+  if (tranformedGrayscale){
+    output.open(path2);
+    tranformedGrayscale->printImage(output);
+    output.close();
+  }
+  if (grayscaleTransofrmedtoMonochrome){
+    output.open(path3);
+    grayscaleTransofrmedtoMonochrome->printImage(output);
+    output.close();
+  }
+  if (monochromeToGrayscale){
+    output.open(path4);
+    monochromeToGrayscale->printImage(output);
+    output.close();
+  }
   system("PAUSE");
   return 0;
 }

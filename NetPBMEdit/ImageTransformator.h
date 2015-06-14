@@ -14,5 +14,9 @@ public:
   bool canTransform();
   PlainMonochromeImage* transformToPlainMonochrome();
   PlainGrayscaleImage*  tranformToPlainGrayscale();
+  bool checkIfSourceIsRealPixmap();
+private:
+  bool checkSourceTypeValidity();
+  bool checkSourceContentValidity();
 };
 

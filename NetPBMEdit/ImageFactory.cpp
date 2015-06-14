@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <cstring>
-#include <cstdlib> // strtoul; 
+#include <cstdlib>
 
 #include "Image.h"
 #include "PlainImage.h"
@@ -94,11 +94,6 @@ Image* ImageFactory::initializeImage(){
     std::cerr << e << std::endl;
     throw e;
   }
-  for (int i = 0; i < pImage->getHeight()* pImage->getWidth(); i++){
-    std::cerr << pImage->getPixel(i).getRed() << " "
-      << pImage->getPixel(i).getGreen() << " "
-      << pImage->getPixel(i).getBlue() << "\n";
-  }
   return pImage;
 }
 
@@ -113,15 +108,6 @@ bool ImageFactory::isComment(char* str){
 		return true;
 	}
 	return false;
-	/*char* c = strchr(str, '#');
-	if (!stream->good()){
-		std::cerr << std::hex << stream->flags() << std::endl;
-	}
-	if (c == NULL){
-		return false;
-	}
-	while (stream->get() != '\n');
-	return true;*/
 }
 
 ImageFactory::~ImageFactory()
